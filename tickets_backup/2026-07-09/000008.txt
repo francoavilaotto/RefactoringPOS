@@ -1,0 +1,21 @@
+MINIMARKET RHINO
+TICKET N°: 000008
+CUIT: 27-42051588-5
+IVA: Avila Ottonello Eliana
+Dirección: Av. Ramírez de Velasco 694
+--------------------------------
+TICKET NO FISCAL
+09/07/2026 03:04
+--------------------------------
+CocaCola
+2 x $1,500   $3,000
+Yerba
+1 x $1,300   $1,300
+Azucar
+1 x $900   $900
+--------------------------------
+TOTAL: $5,200
+PAGO: $10,000
+VUELTO: $4,800
+
+Gracias por su compra

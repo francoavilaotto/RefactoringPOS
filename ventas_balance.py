@@ -1,7 +1,9 @@
 import pandas as pd
 import os
-from datetime import datetime
 import sys
+from datetime import datetime
+from almacenamiento import guardado_atomico, hacer_backup
+
 
 if getattr(sys, 'frozen', False):
     BASE_PATH = os.path.dirname(sys.executable)
@@ -13,6 +15,7 @@ VENTAS_PATH = os.path.join(DATA_PATH, "ventas.xlsx")
 
 COLUMNAS_VENTAS = [
     "ID",
+    "NumeroTicket",
     "Fecha",
     "Hora",
     "Usuario",
@@ -69,9 +72,16 @@ def guardar_venta(numero_ticket, total, pago, vuelto, usuario, metodo, plataform
 
     df = pd.concat([df, pd.DataFrame([nueva_venta])], ignore_index=True)
 
-    df.to_excel(VENTAS_PATH, index=False, engine="openpyxl")
+    # Backup con timestamp antes de tocar el archivo real.
+    hacer_backup(VENTAS_PATH)
 
+    def escribir(ruta_temp):
+        df.to_excel(ruta_temp, index=False, engine="openpyxl")
 
+    # Guardado atómico: si algo falla a mitad de escritura, ventas.xlsx
+    # nunca queda corrupto ni a medio escribir.
+    guardado_atomico(escribir, VENTAS_PATH)
+    
 
 def total_por_dia(fecha):
     df = cargar_ventas()
